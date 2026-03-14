@@ -70,7 +70,7 @@ export function AIAdvisorPanel() {
         background: 'var(--bg2)',
         borderTop: '1px solid var(--border)',
         fontFamily: 'var(--mono)',
-        fontSize: 10,
+        fontSize: 14,
         letterSpacing: '0.12em',
         color: 'var(--accent)',
         display: 'flex',
@@ -115,21 +115,21 @@ export function AIAdvisorPanel() {
 
       {/* Messages */}
       <div style={{
-        maxHeight: 220,
+        maxHeight: 160,
         overflowY: 'auto',
-        padding: '10px 12px',
+        padding: '8px 10px',
         display: 'flex',
         flexDirection: 'column',
-        gap: 8,
+        gap: 6,
       }}>
         {chat.map((msg) => (
           <div
             key={msg.id}
             className="fadein"
             style={{
-              fontSize: 12,
-              lineHeight: 1.55,
-              padding: '7px 10px',
+              fontSize: 13,
+              lineHeight: 1.45,
+              padding: '5px 8px',
               borderRadius: 4,
               maxWidth: '95%',
               alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
@@ -183,7 +183,7 @@ export function AIAdvisorPanel() {
               setInput(p)
             }}
             style={{
-              fontSize: 10,
+              fontSize: 14,
               fontFamily: 'var(--mono)',
               padding: '2px 7px',
               borderRadius: 2,
@@ -230,7 +230,7 @@ export function AIAdvisorPanel() {
             padding: '6px 10px',
             color: 'var(--text)',
             fontFamily: 'var(--sans)',
-            fontSize: 12,
+            fontSize: 14,
             outline: 'none',
           }}
           onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
@@ -246,7 +246,7 @@ export function AIAdvisorPanel() {
             borderRadius: 4,
             padding: '6px 14px',
             fontFamily: 'var(--mono)',
-            fontSize: 10,
+            fontSize: 14,
             letterSpacing: '0.08em',
             cursor: isSending ? 'not-allowed' : 'pointer',
             fontWeight: 700,

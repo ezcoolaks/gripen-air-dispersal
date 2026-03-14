@@ -56,8 +56,18 @@ npm install
 
 ```bash
 cp .env.example .env.local
-# Edit .env.local and set your Anthropic API key:
-# VITE_ANTHROPIC_API_KEY=sk-ant-...
+```
+
+Edit `.env.local` and set your OpenRouter API key:
+```
+VITE_OPENROUTER_API_KEY=sk-or-v1-...
+```
+
+Get a free key at **https://openrouter.ai/keys** — no credit card required for free-tier models.
+
+By default the app uses `anthropic/claude-sonnet-4-5`. You can switch to any model on OpenRouter by adding:
+```
+VITE_OPENROUTER_MODEL=openai/gpt-4o
 ```
 
 ### 3. Run development server
@@ -182,7 +192,7 @@ Replace `MOCK_HISTORY` with a backend database. The `lastUsedHoursAgo` and `hist
 Extend the engine to accept multiple Gripen formations and ensure dispersal zones aren't double-allocated within the same time window.
 
 ### Backend API
-Move the Anthropic API call to a secure backend proxy (e.g. Node.js/FastAPI) to avoid exposing the API key in the browser. The `src/lib/anthropic.ts` module is designed for easy proxy substitution — change the `ANTHROPIC_API_URL` constant to point to your backend.
+Move the OpenRouter API call to a secure backend proxy (e.g. Node.js/FastAPI) to avoid exposing the API key in the browser. The `src/lib/anthropic.ts` module is designed for easy proxy substitution — change the `OPENROUTER_URL` constant to point to your backend. OpenRouter's OpenAI-compatible format makes it straightforward to route through any proxy that speaks the OpenAI chat completions protocol.
 
 ---
 

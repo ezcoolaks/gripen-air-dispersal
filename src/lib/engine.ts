@@ -42,24 +42,28 @@ function scoreZone(zone: DisposalZone, nw: Record<keyof FactorWeights, number>):
 /**
  * Apply entropy / unpredictability modifiers.
  * Zones not used recently get a bonus; zones with high historical use get a penalty.
+ * Modifiers are intentionally small — they tip the balance between close scores
+ * but should never override a zone with materially better operational scores.
  */
 function applyEntropyModifier(zone: DisposalZone, entropyWeight: number): number {
   let modifier = 0
 
-  // Novelty bonus: never used
-  if (zone.lastUsedHoursAgo === null) modifier += 8
+  // Novelty bonus: never used — worth 4 pts max (was 8, too strong)
+  if (zone.lastUsedHoursAgo === null) modifier += 4
   // Recency bonus: not used in 5+ days
-  else if (zone.lastUsedHoursAgo > 120) modifier += 5
+  else if (zone.lastUsedHoursAgo > 120) modifier += 3
   // Recent use penalty
-  else if (zone.lastUsedHoursAgo < 24) modifier -= 10
-  else if (zone.lastUsedHoursAgo < 48) modifier -= 5
+  else if (zone.lastUsedHoursAgo < 24) modifier -= 8
+  else if (zone.lastUsedHoursAgo < 48) modifier -= 4
 
   // Historical use frequency penalty
-  if (zone.historicalUseCount > 6) modifier -= 8
-  else if (zone.historicalUseCount > 3) modifier -= 3
+  if (zone.historicalUseCount > 6) modifier -= 6
+  else if (zone.historicalUseCount > 3) modifier -= 2
 
-  // Scale modifier by entropy weight importance
-  return Math.round(modifier * (entropyWeight / 100))
+  // Scale by normalised entropy weight (0-1) so a low entropy priority
+  // doesn't still apply the full modifier
+  const normEntropy = entropyWeight / 100
+  return Math.round(modifier * normEntropy)
 }
 
 /**

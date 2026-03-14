@@ -346,7 +346,12 @@ export function buildSystemPrompt(
 - Unpredictability/Entropy: ${weights.entropy}%
 
 **Current Top Recommendations:**
-${topRecs.map((z, i) => `${i + 1}. ${z.name} (Score: ${z.compositeScore}) — ${z.rationaleSummary}`).join('\n')}
+${topRecs.length > 0
+  ? topRecs.map((z, i) => `${i + 1}. ${z.name} — Score: ${z.compositeScore} — ${z.rationaleSummary}`).join('\n')
+  : 'No recommendations generated yet — operator must press GENERATE first.'
+}
+
+Note: Always refer to zones by their actual computed rank above. Do not reference zone names from previous conversations if a new GENERATE has been run.
 
 ## Response Style
 - Military brevity — 2-5 sentences maximum unless detailed analysis requested

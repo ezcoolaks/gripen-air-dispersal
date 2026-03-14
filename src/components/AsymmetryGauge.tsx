@@ -4,9 +4,11 @@ interface GaugeProps {
 }
 
 export function AsymmetryGauge({ value, size = 180 }: GaugeProps) {
-  const h = size * 0.56
+  // Add vertical padding so arc strokes (strokeWidth=10) don't clip at edges
+  const pad = 10
+  const h = size * 0.56 + pad
   const cx = size / 2
-  const cy = h - 12
+  const cy = h - 12 - pad / 2
   const r = size * 0.39
 
   // Arc path: sweeps from left to right (180° arc)
@@ -41,7 +43,7 @@ export function AsymmetryGauge({ value, size = 180 }: GaugeProps) {
   const color = value >= 70 ? '#00c88c' : value >= 45 ? '#f0a800' : '#e04040'
 
   return (
-    <svg width={size} height={h} viewBox={`0 0 ${size} ${h}`} style={{ overflow: 'visible' }}>
+    <svg width={size} height={h} viewBox={`0 0 ${size} ${h}`}>
       <defs>
         <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#e04040" />

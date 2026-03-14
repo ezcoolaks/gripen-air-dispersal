@@ -13,16 +13,18 @@ export default function App() {
       background: 'var(--bg)',
     }}>
       <TopBar />
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '280px 1fr 340px',
-        flex: 1,
-        overflow: 'hidden',
-      }}>
-        <ParametersPanel />
-        <TacticalMap />
-        <RecommendationsPanel />
+      <div style={{ flex: 1, overflow: 'auto', minWidth: 0 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '300px 1fr 340px',
+          minWidth: 900,
+          height: '100%',
+          minHeight: 0,
+        }}>
+          <ParametersPanel />
+          <TacticalMap />
+          <RecommendationsPanel />
+        </div>
       </div>
     </div>
   )

@@ -3,6 +3,8 @@ import { MetricsPanel } from './MetricsPanel'
 import { RecommendationCards } from './RecommendationCards'
 import { AIAdvisorPanel } from './AIAdvisorPanel'
 import { HistoryLog } from './HistoryLog'
+import { SatelliteCountdown } from './SatelliteCountdown'
+import { ZoneDetailModal } from './ZoneDetailModal'
 import { formatZuluShort } from '@/lib/utils'
 
 export function RecommendationsPanel() {
@@ -13,6 +15,7 @@ export function RecommendationsPanel() {
       display: 'flex',
       flexDirection: 'column',
       height: '100%',
+      minWidth: 0,
       overflow: 'hidden',
       background: 'var(--panel)',
       borderLeft: '1px solid var(--border)',
@@ -39,6 +42,7 @@ export function RecommendationsPanel() {
 
       {/* Scrollable body */}
       <div style={{ flex: 1, overflowY: 'auto', padding: 12 }}>
+        <SatelliteCountdown />
         <MetricsPanel />
 
         <div style={{
@@ -47,13 +51,12 @@ export function RecommendationsPanel() {
           letterSpacing: '0.12em',
           color: 'var(--text2)',
           marginBottom: 8,
-          paddingBottom: 6,
-          borderBottom: '1px solid var(--border)',
         }}>
           TOP DISPERSAL RECOMMENDATIONS
         </div>
 
         <RecommendationCards />
+        <ZoneDetailModal />
         <HistoryLog />
       </div>
 

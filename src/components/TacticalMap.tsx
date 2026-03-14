@@ -110,7 +110,7 @@ export function TacticalMap() {
   }, [mapLayers])
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <div style={{ position: 'relative', width: '100%', height: '100%', minWidth: 0, overflow: 'hidden' }}>
       <div className="scanlines" />
       <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
       <MapLegend />
