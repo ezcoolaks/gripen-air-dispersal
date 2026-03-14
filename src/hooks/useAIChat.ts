@@ -35,9 +35,9 @@ export function useAIChat() {
           },
           onError: (err) => {
             const errorMsg =
-              err.message.includes('VITE_ANTHROPIC_API_KEY')
-                ? '⚠ **API key not configured.** Add `VITE_ANTHROPIC_API_KEY=sk-...` to your `.env.local` file and restart the dev server.'
-                : `⚠ Comms link degraded: ${err.message}`
+              err.message.includes('VITE_OPENROUTER_API_KEY')
+                ? '⚠ **API key not configured.** Add `VITE_OPENROUTER_API_KEY=sk-or-v1-...` to your `.env.local` file and restart the dev server. Get a free key at openrouter.ai/keys'
+                : `⚠ OpenRouter error: ${err.message}`
             updateLastAssistantMessage(errorMsg)
             isStreamingRef.current = false
           },

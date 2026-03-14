@@ -12,6 +12,22 @@ const QUICK_PROMPTS = [
   'FARP setup requirements for Bravo-3',
 ]
 
+// Read model slug from env, fall back to default
+const RAW_MODEL: string =
+  import.meta.env.VITE_OPENROUTER_MODEL || 'anthropic/claude-sonnet-4-5'
+
+// Format for display: strip provider prefix and truncate if long
+// e.g. "anthropic/claude-sonnet-4-5" → "CLAUDE-SONNET-4-5"
+//      "openai/gpt-4o"               → "GPT-4O"
+//      "meta-llama/llama-3.1-70b-instruct" → "LLAMA-3.1-70B"
+function formatModelLabel(slug: string): string {
+  const name = slug.includes('/') ? slug.split('/').slice(1).join('/') : slug
+  const upper = name.toUpperCase().replace(/-INSTRUCT$/, '').replace(/-PREVIEW$/, '')
+  return upper.length > 22 ? upper.slice(0, 20) + '…' : upper
+}
+
+const MODEL_LABEL = formatModelLabel(RAW_MODEL)
+
 export function AIAdvisorPanel() {
   const { chat, clearChat } = useAppStore()
   const { sendMessage } = useAIChat()
@@ -62,8 +78,22 @@ export function AIAdvisorPanel() {
         justifyContent: 'space-between',
       }}>
         <span>◈ AI TACTICAL ADVISOR</span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ color: 'var(--text2)', fontSize: 9 }}>CLAUDE</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span
+            title={RAW_MODEL}
+            style={{
+              color: 'var(--text2)',
+              fontSize: 9,
+              letterSpacing: '0.08em',
+              background: 'rgba(0,200,140,0.07)',
+              border: '1px solid var(--border)',
+              borderRadius: 2,
+              padding: '1px 5px',
+              cursor: 'default',
+            }}
+          >
+            {MODEL_LABEL}
+          </span>
           <button
             onClick={clearChat}
             style={{
